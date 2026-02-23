@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de indicadores CONEVAL 2008-2018</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawDashboard);
+
+      function drawDashboard() {
+        // 1. LineChart: Evolución nacional
+        var data1 = google.visualization.arrayToDataTable([
+          ['Año', 'Pobreza', 'Pobreza extrema'],
+          ['2008', 44.4, 11.0], ['2010', 46.1, 11.3], ['2012', 45.5, 9.8],
+          ['2014', 46.2, 9.5],  ['2016', 43.6, 7.6],  ['2018', 41.9, 7.4]
+        ]);
+        new google.visualization.LineChart(document.getElementById('chart_line')).draw(data1, {title: 'Tendencia de pobreza nacional (%)', curveType: 'function', legend: { position: 'bottom' }});
+
+        // 2. BarChart: Carencias 2018
+        var data2 = google.visualization.arrayToDataTable([
+          ['Carencia', 'Porcentaje'],
+          ['Seg. social', 57.3], ['Alimentación', 20.4], ['Serv. básicos', 19.8],
+          ['Rezago ed.', 16.9], ['Salud', 16.2], ['Vivienda', 11.1]
+        ]);
+        new google.visualization.BarChart(document.getElementById('chart_bar')).draw(data2, {title: 'Carencias sociales (2018)', colors: ['#e67e22']});
+
+        // 3. PieChart: Rural vs Urbano
+        var data3 = google.visualization.arrayToDataTable([
+          ['Ámbito', 'Porcentaje'], ['Rural', 55.3], ['Urbano', 37.6]
+        ]);
+        new google.visualization.PieChart(document.getElementById('chart_pie')).draw(data3, {title: 'Pobreza por ámbito (2018)', is3D: true});
+
+        // 4. ColumnChart: Etnicidad
+        var data4 = google.visualization.arrayToDataTable([
+          ['Grupo', 'Pobreza (%)', { role: 'style' }],
+          ['Indígena', 74.9, '#1b9e77'], ['No indígena', 39.4, '#d95f02']
+        ]);
+        new google.visualization.ColumnChart(document.getElementById('chart_col')).draw(data4, {title: 'Pobreza por pertenencia étnica (2018)', legend: 'none'});
+
+        // 5. AreaChart: Género
+        var data5 = google.visualization.arrayToDataTable([
+          ['Año', 'Mujeres', 'Hombres'],
+          ['2008', 44.6, 44.0], ['2018', 42.4, 41.4]
+        ]);
+        new google.visualization.AreaChart(document.getElementById('chart_area')).draw(data5, {title: 'Brecha de género 2008-2018', vAxis: {minValue: 0}});
+      }
+    </script>
+    <style>
+      body { font-family: Arial; background: #eee; padding: 20px; }
+      .container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+      .chart { background: white; padding: 15px; border-radius: 10px; height: 300px; }
+      .full { grid-column: span 2; height: 400px; }
+    </style>
+</head>
+<body>
+    <h2 style="text-align:center">Tablero de visualización: 10 años de medición de pobreza</h2>
+    <div class="container">
+        <div id="chart_line" class="chart full"></div>
+        <div id="chart_bar" class="chart"></div>
+        <div id="chart_pie" class="chart"></div>
+        <div id="chart_col" class="chart"></div>
+        <div id="chart_area" class="chart"></div>
+    </div>
+</body>
+</html>
